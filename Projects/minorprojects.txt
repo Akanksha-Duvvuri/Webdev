@@ -1,0 +1,8 @@
+1.Spotify UI copy - first real project 
+2. Chatgpt UI copy - first real project i did on my own
+3. Simon says game
+4. Rock paper scissors
+5. random color generator
+6. simple quora page-  backend
+7. mini whatsapp knockoff - dbs
+8. todo app
