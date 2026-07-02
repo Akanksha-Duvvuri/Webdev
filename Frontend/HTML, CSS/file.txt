@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+</body>
+
+</html>
+
+
+1. Use target="_blank" to make the anchor tag link to open in a new window

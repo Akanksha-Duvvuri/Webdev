@@ -1,0 +1,11 @@
+JSX - javascript XML (extensible markup language - like HMTL, you can use tags etc etc but this also helps describe what the data actually does instead of just displaying it) and this JS XML is an XML like syntax extention used in JS frameworks like React.
+
+So JSX basically helps you write HTML like code directly within your JS files, or basically HTML + JS.
+
+CSS is written separately and can be imported to the respective file
+
+A framework is a pre-built foundation that provides the structure, tools, and funtionality required to build applications. 
+
+Purpose of JSX - it makes writing the user interface (UI) easier instead of manually writing HTML and JS separately. 
+
+Browser can not read the JSX directly, a tool like Babel (JS complier - transpiles (source to source compile - translate source code written in one language to an equivalent source code in another language or a diff version of the same language)) converts it into the standard JS functions, etc etc and this is read and understood by the browser
