@@ -1,4 +1,4 @@
-JSX - javascript XML (extensible markup language - like HMTL, you can use tags etc etc but this also helps describe what the data actually does instead of just displaying it) and this JS XML is an XML like syntax extention used in JS frameworks like React.
+1.JSX - javascript XML (extensible markup language - like HMTL, you can use tags etc etc but this also helps describe what the data actually does instead of just displaying it) and this JS XML is an XML like syntax extention used in JS frameworks like React.
 
 So JSX basically helps you write HTML like code directly within your JS files, or basically HTML + JS.
 
@@ -9,3 +9,17 @@ A framework is a pre-built foundation that provides the structure, tools, and fu
 Purpose of JSX - it makes writing the user interface (UI) easier instead of manually writing HTML and JS separately. 
 
 Browser can not read the JSX directly, a tool like Babel (JS complier - transpiles (source to source compile - translate source code written in one language to an equivalent source code in another language or a diff version of the same language)) converts it into the standard JS functions, etc etc and this is read and understood by the browser
+
+Now TSX - a file extention and syntax used to write React components using Typescript (combines ts with JSX) - helps developers directly write their HTML like UI along with their components. 
+
+
+Why TSX over JSX? - this is because TS compiler checks for component props (properties - read only objects (a DS that stores data as acollection of key-value pairs) that are used to pass data from a parent component to a child component), state, and UI elements for type errors before your code runs in the browser
+
+
+2. imports and exports in tsx files - any file containing a top level import or export is considered a module. A file wo top level imports and exports are treated as a script whose contents are available in the global scope (and hence are modules as well)
+
+    Named exports - share multiple items from a single file, import names must match the exported names
+
+    Default exports - if a file contains only one primary component, import name can be arbitrary
+
+    Barrel exports - re exporting basically
