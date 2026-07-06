@@ -1,0 +1,6 @@
+TS vs JS -
+
+JS is a dynamic scripting language (scripting language - a prog lang that is interpreted line by line at run time rather than being compiled into machine code beforehand). Runs directly in the browser and node JS, errors are caught during execution
+
+
+TS is a static typing scripting lang (errors are checked at the compile time), this must be transpiled into JS first, errors are caught instantly in the code editor. 

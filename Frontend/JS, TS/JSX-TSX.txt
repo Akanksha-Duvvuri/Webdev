@@ -1,25 +1,137 @@
-1.JSX - javascript XML (extensible markup language - like HMTL, you can use tags etc etc but this also helps describe what the data actually does instead of just displaying it) and this JS XML is an XML like syntax extention used in JS frameworks like React.
+ 1.JSX - javascript XML (extensible markup language - like HMTL, you can use tags etc etc but this also helps describe what the data actually does instead of just displaying it) and this JS XML is an XML like syntax extention used in JS frameworks like React.
+    So JSX basically helps you write HTML like code directly within your JS files, or basically HTML + JS.
+    CSS is written separately and can be imported to the respective file
 
-So JSX basically helps you write HTML like code directly within your JS files, or basically HTML + JS.
+    A framework is a pre-built foundation that provides the structure, tools, and funtionality required to build applications. 
 
-CSS is written separately and can be imported to the respective file
+    Purpose of JSX - it makes writing the user interface (UI) easier instead of manually writing HTML and JS separately. 
 
-A framework is a pre-built foundation that provides the structure, tools, and funtionality required to build applications. 
+    Browser can not read the JSX directly, a tool like Babel (JS complier - transpiles (source to source compile - translate source code written in one language to an equivalent source code in another language or a diff version of the same language)) converts it into the standard JS functions, etc etc and this is read and understood by the browser
 
-Purpose of JSX - it makes writing the user interface (UI) easier instead of manually writing HTML and JS separately. 
+    Now TSX - a file extention and syntax used to write React components using Typescript (combines ts with JSX) - helps developers directly write their HTML like UI along with their components. 
 
-Browser can not read the JSX directly, a tool like Babel (JS complier - transpiles (source to source compile - translate source code written in one language to an equivalent source code in another language or a diff version of the same language)) converts it into the standard JS functions, etc etc and this is read and understood by the browser
-
-Now TSX - a file extention and syntax used to write React components using Typescript (combines ts with JSX) - helps developers directly write their HTML like UI along with their components. 
-
-
-Why TSX over JSX? - this is because TS compiler checks for component props (properties - read only objects (a DS that stores data as acollection of key-value pairs) that are used to pass data from a parent component to a child component), state, and UI elements for type errors before your code runs in the browser
+    Why TSX over JSX? - this is because TS compiler checks for component props (properties - read only objects (a DS that stores data as a collection of key-value pairs) that are used to pass data from a parent component to a child component), state, and UI elements for type errors before your code runs in the browser
 
 
-2. imports and exports in tsx files - any file containing a top level import or export is considered a module. A file wo top level imports and exports are treated as a script whose contents are available in the global scope (and hence are modules as well)
-
+2. imports and exports in tsx files - statements used to share code like react components(independent, reusable pieces of code - they are like functions but return HTML), functions, objects and types between diff files. 
+any file containing a top level import or export is considered a module. A file wo top level imports and exports are treated as a script whose contents are available in the global scope (and hence are modules as well)
+Modules are executed within their own scope, so functions should be explicitly exported to be used in other files. 
     Named exports - share multiple items from a single file, import names must match the exported names
-
     Default exports - if a file contains only one primary component, import name can be arbitrary
-
     Barrel exports - re exporting basically
+
+3. Return - a statement that specifies the UI that the component should display on the screen. 
+and the <main> element in react is used to wrap the dominant or primary content of the Webpage
+
+
+4. use client directive(an official order to do something) is a react feature used to declare a boundary between server and client components within frameworks. 
+It is needed because it signals that the module and all the files imported into it (cascade effect) should be treated as a client side JS capable of running in the browser. 
+
+React has a default environment which is the RSC (react server components), so using client switches the environment from server side to the client side.
+This does not disable SSR (server side rendering), it just tells the framework to send the JS so that the browser can interpret it and make it functional and interactive.  
+
+This creates a client component. If we remove it, the page can still be rendered on the server and gets sent as HTML but it wont be interactive as JS wont be sent. 
+
+
+5. useRouter (hook) - lets you navigate bw pages 
+
+6. useState (hook) - helps track data that changes while the app runs. used to manage and track dynamic data within functional components, it returns a stateful value and a function to update it, your UI automatically re-renders whenever the data changes
+
+        const [state, setState] = useState(initialValue);
+
+        here, state - current value of the state (state variable)
+        setSate - function to update the value (setter function)
+
+
+        const [user, setUser] = useState<UserFormState | null>(null); -> creating a piece of memory inside the react component called user starting with the value null(iniial value), setUser is a function used to change that memory
+
+7. Hooks let components "remember values". A function that manages state and logic.
+
+
+8. Hydration is when the react takes server rendered HTML and attaches JS behaviour to it to make it interactive. 
+
+So the browser gets the HTML, and then react loads the JS and then it attaches the functionality you define to it (ex onclick, useState, event listeners etc etc)
+
+9. useEffect - it basically takes care of the side effects (effects that are apart from rendering the UI) ex, fetch data from an API, start a timer, update the title, access localStorage etc etc
+
+React renders the UI and then does some extra work after rendering (fetching, calling, etc etc this is what useEffect does)
+
+useEffect(() => {
+    logic
+}, []);  <---- dependency array 
+
+the dependency array makes the effect run only once, right after the initial render, you can also use the hook without the dependency array for it to run everytime you click on it
+
+when you have some value in the dependency array - the effect runs after the initial render and re runs whenever any value inside the array changes 
+
+const [count, setCount] = useState(0);
+
+useEffect(() => {
+    console.log("Count changed");
+}, [count]);
+
+click a button - setCount becomes 1 - count changed so the effect runs
+
+without a dependency array - runs after every single render of the component
+
+10. props - Information passed from a parent component to a child component.
+
+        function greet(name) {
+            return "Hello " + name;
+        }
+
+        greet("Akanksha");
+
+        name = parameter
+        Akanksha = argument
+
+function Welcome(props) {
+    return <h1>Hello {props.name}</h1>;
+}
+
+<Welcome name="Akanksha" />
+
+this is basically - 
+
+Welcome({
+    name: "Akanksha"
+});
+
+State vs Props - props are passed down from a parent to a child 
+
+ex - parent sends down the data: <Post username="akanksha" />
+
+child receives : 
+
+function Post(props) {
+    return <h1>{props.username}</h1>;
+}
+
+child did not create the data - it simply received it. Thats a properties
+
+Whereas for a state - the component itself owns the data, it updates its own data
+
+
+11 - reconciliation -  process of bringing two diff versions of data or states into agreement 
+
+12 - Destructuring pulls properties out of an object and stores them in variables with the name names
+
+
+const { name } = user; is the shorthand for const name = user.name;
+
+
+JavaScript is happy to look for a property that doesn't exist.
+
+say I have const user {
+    name: "akanksha",
+    age: 19
+};
+
+const { city } = user;
+console.log(city); -----> no error, returns undefined
+
+
+say I use 
+const { name: username } = user;
+
+console.log(username);

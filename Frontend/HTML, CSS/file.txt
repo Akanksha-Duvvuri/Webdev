@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-</head>
-
-<body>
-</body>
-
-</html>
-
-
 1. Use target="_blank" to make the anchor tag link to open in a new window
+
+2. purpose of using classes and ids in CSS is so that styling can be directly applied to them 
+ids are unique whereas multiple elements can have the same class 
