@@ -1,0 +1,284 @@
+Express is nothing but a framework designed for web applications and APIs - a framework is a pre built foundation that gives a blueprint, reusable components and standardized tools -  for node js 
+
+API or application programming interface - a set of rules that allow diff software applications to communication and share data with eo over HTTP requests
+
+so it acts like a bridge between one system and the other and also gets the response back 
+
+node js is a runtime environment that lets developers run js outside a web browser
+
+a port is basically an endpoint for communication, for example port 3000 or 8080, its used for local web dev, so when i want to run applications or apis locally, i can use local host and these local hosts listen on port 3000 or 8080 and preview them on the browser for dev
+it acts like a door or a point where my server can receive requests
+
+local host - a hostname that allows your computer to connect to itself using its own netweok interface
+
+nodemon is a CLI that wraps your node js application and automatically restarts the server whenever changes are detected in the project  - so you dont need to start and restart your application everytime a change is made 
+
+Routing is  bascially how an application responds to a client request to a particular end point (URI - unifrom resource identifier - a unique string of char used to identify a specific physical or logical resource)
+
+an instance is an object created from a conceptual blueprint called a class or another construction function (a regular function used as a blueprint to create and initialize multiple objects of the same type)
+
+
+app.METHOD(PATH, HANDLER)
+
+CRUD describes the four main ways to manage data.
+REST stands for Representational Statze Transfer. It is a set of rules for how computers talk over the web. REST translates CRUD tasks into web commands called HTTP methods
+
+Create uses POST.Read uses GET.Update uses PUT or PATCH.Delete uses DELETE
+
+HANDLER is the function executed when the route is matched.
+
+To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
+
+express.static(root, [options]);
+
+Express looks up the files relative to the static directory
+
+middleware is a software that acts as a bridge between diff applications, dbs or os
+A middleware is simply a function that runs between receiving a request and sending a response.
+
+next() means:
+
+"I'm done, move to the next middleware/handler."
+
+1. Application Middleware
+
+Runs on every request.
+
+app.use((req, res, next) => {
+  console.log(req.method, req.url);
+  next();
+});
+
+2. Route Middleware
+
+Runs only for specific routes.
+
+function auth(req, res, next) {
+  console.log("Checking auth");
+  next();
+}
+
+app.get("/admin", auth, (req, res) => {
+  res.send("Admin Page");
+});
+
+3. Built-in Middleware
+JSON Parser
+app.use(express.json());
+
+Without it:
+
+req.body is undefines until some middleware parses it  (express.json())
+
+4. Error Middleware
+
+Special middleware with 4 parameters.
+
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  res.status(500).json({
+    error: "Something went wrong",
+  });
+});
+
+Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application’s request-response cycle. The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
+
+Middleware functions can perform the following tasks:
+
+    Execute any code.
+    Make changes to the request and the response objects.
+    End the request-response cycle.
+    Call the next middleware in the stack.
+
+If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
+
+Markup code is a set of annotations used to format or structure a document
+
+Markup languages such as HTML use tags to describe the structure and presentation of content.
+
+a wildcard route matches multiple URL paths using the asterisk (*) character
+
+Order of Execution: Express processes routes sequentially from top to bottom. Always place your wildcard route at the absolute bottom of your routing file. 
+Placing it above specific routes will intercept the traffic and prevent those endpoints from firing
+
+Wildcards bascially allow a route to match multiple URL patterns and are commonly used for catch-all or 404 routes.
+
+Route parameters are named URL segments that are used to capture the values specified at their position in the URL. The captured values are populated in the req.params object
+
+Route path: /users/:userId/books/:bookId
+Request URL: http://localhost:3000/users/34/books/8989
+req.params: { "userId": "34", "bookId": "8989" }
+
+Everything after : becomes a property of req.params.
+
+req.params is an object used to capture dynamic values located directly inside the URL path
+
+req.body is an object that contains key-value pairs of data submitted in the HTTP request body. It is primarily used to extract payload data sent by clients during POST, PUT, or PATCH requests, such as form submissions, JSON payloads (A JSON payload is the main body of data sent to or from a server in a client-server exchange (like an HTTP POST or PUT request). ), or file uploads
+
+By default, req.body is undefined. The Express framework does not automatically parse the incoming request stream. You must use built-in or third-party body-parsing middleware to populate it
+
+A parser is a software component that takes sequential data—such as a stream of tokens or characters—and breaks it down into a structured, hierarchical format, usually a tree
+
+Local Storage: The browser's localStorage can only store strings. If you save a JavaScript object there using JSON.stringify(), you must parse it when retrieving it back.
+
+PUT completely replaces an existing resource, whereas PATCH applies partial modifications to it
+
+Route Handlers
+A route handler is the function that actually executes when a route matches.
+app.get("/users", (req, res) => {
+  res.send("All users");
+});
+
+
+(req, res) => {
+  res.send("All users");   is the route handler.
+}
+
+
+req (Request) - Contains information about the incoming request. req.params
+req.query
+req.body
+req.headers
+req.method
+req.url
+
+
+res (Response) - Used to send data back.
+
+res.send(...)
+res.json(...)
+res.status(...)
+
+Response Methods - 
+The res object contains methods for sending data to the client.
+
+can also send objects - Express automatically converts it to JSON.
+
+res.status() - 
+Sets HTTP status code. By itself it sends nothing.
+
+
+201 - created
+400 - bad req 
+401 - unauth
+403 - forbidden
+404 - not found
+500 - server err
+
+res.download()
+Used for file downloads. Directly download it instead of displaying it
+
+A route handler is the callback function associated with a route that receives the request and response objects and contains the business logic for processing that request.
+
+Response Methods
+
+Response methods are functions on Express's res object used to send data back to the client, set status codes, redirect requests, serve files, or terminate the response. Common methods are res.json(), res.send(), res.status(), res.redirect(), and res.download().
+
+
+A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. This approach makes it easier to design an HTML page.
+
+To render template files, set the following application setting properties, in the default app.js created by the generator:
+
+    views, the directory where the template files are located. Eg: app.set('views', './views'). This defaults to the views directory in the application root directory.
+    view engine, the template engine to use. For example, to use the Pug template engine: app.set('view engine', 'pug').
+
+
+When you make a request to the home page, the index.ejs file will be rendered as HTML.
+
+
+Error Handling refers to how Express catches and processes errors that occur both synchronously and asynchronously. Express comes with a default error handler so you don’t need to write your own to get started.
+
+Errors that occur in synchronous code inside route handlers and middleware require no extra work. If synchronous code throws an error, then Express will catch and process it. 
+
+For errors returned from asynchronous functions invoked by route handlers and middleware, you must pass them to the next() function, where Express will catch and process them. 
+
+
+
+
+
+
+The fs module in Node.js stands for File System. It is a core, built-in module that provides an API to interact with your computer's physical file system, allowing you to manage files and directories without installing external packages
+
+
+
+req.query - the extra data after a ?
+
+/users        -> route path
+?page=2       -> query parameter
+&limit=10     -> another query parameter
+
+query parameters are always strings unless you convert them.
+
+
+HTTP Request Lifecycle - Every Express request follows this flow:
+
+Client
+  ↓
+Request
+  ↓
+Route Match
+  ↓
+Middleware
+  ↓
+Route Handler
+  ↓
+Response
+  ↓
+Client
+
+-------
+
+Start fetch
+ ↓
+Promise Pending
+ ↓
+Wait
+ ↓
+Response arrives
+ ↓
+Continue execution
+
+await is only valid in async functions******************************************
+
+
+
+
+
+CORS = Cross-Origin Resource Sharing.
+
+CORS is a browser security mechanism that controls whether a web page can access resources from a different origin. Servers enable cross-origin access by sending specific HTTP headers.
+
+
+Environment Variables (process.env) - Environment variables are external configuration values stored outside source code and accessed through process.env. They are commonly used for secrets, API keys, ports, and deployment-specific settings.
+
+
+
+Cookies vs Sessions vs JWT
+
+Cookie
+A cookie is simply a small piece of data stored by the browser.
+
+Session
+A session stores data on the server.
+
+How Web Sessions WorkWeb sessions bridge the gap between stateless communication and personalized user experiences through a four-step lifecycle:Initiation: You visit a website or log in.Creation: The server generates a unique, temporary string of text called a Session ID.Delivery: The server sends this Session ID back to your browser, which typically saves it as a session cookie.
+
+Exchange: For every subsequent action you take, your browser automatically passes that cookie containing the Session ID back to the server. The server matches the ID with its backend storage to retrieve your active data
+
+JWT
+JWT = JSON Web Token.
+
+A browser token is a digital key that proves your identity to a website
+
+Cookie
+
+A cookie is a small piece of data stored in the browser and automatically sent with future requests to the same domain.
+
+Session
+
+A session stores user state on the server while the browser stores only a session identifier.
+
+JWT
+
+A JWT is a signed token containing user information that allows stateless authentication without storing session data on the server.

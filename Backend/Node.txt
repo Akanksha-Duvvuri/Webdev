@@ -1,0 +1,14 @@
+npm - Node package manager is the default package manager for js and it lets people or developers download reusable packages or modules so they dont have to write everything from scratch
+
+npx actually lets you run a command from a local or remote npm package 
+
+package - reusable folder or archine containing code and a package.json file (its a configuration hub - so it stores essential metadata, defines executable automation scripts and tracks all external library dependencies required to build the application) and it manifests (a file that contains the metadata describing the projest)
+
+without it - the project lacks dependencies or "manifest" part, and youll also get errors if you try to use the modern js syntax for example, using import instead of const
+
+it also contains the projects official name, version, liscense etc etc 
+
+package.json defines the broad config while package-lock.json gives the exact version, its dependency - so bascially the sub dependency 
+
+Modules are reusable pieces of code that can be exported from one file and imported into another.
+

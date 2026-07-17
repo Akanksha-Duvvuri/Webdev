@@ -52,7 +52,7 @@ This creates a client component. If we remove it, the page can still be rendered
 
 So the browser gets the HTML, and then react loads the JS and then it attaches the functionality you define to it (ex onclick, useState, event listeners etc etc)
 
-9. useEffect - it basically takes care of the side effects (effects that are apart from rendering the UI) ex, fetch data from an API, start a timer, update the title, access localStorage etc etc
+9. useEffect - it basically takes care of the side effects (effects that are apart from rendering the UI, A side effect is any operation that interacts with something outside the component's rendering process.) ex, fetch data from an API, start a timer, update the title, access localStorage etc etc
 
 React renders the UI and then does some extra work after rendering (fetching, calling, etc etc this is what useEffect does)
 
@@ -132,6 +132,65 @@ console.log(city); -----> no error, returns undefined
 
 
 say I use 
-const { name: username } = user;
+const { name: username } = user; insstead of console.log(user.name);
 
-console.log(username);
+console.log(username);  ---> renaming during Destructuring -> takes the name property and stores it in a var called username 
+
+****array destructuring works by position/index and Object destructuring works by property name.
+
+useState returns an array instead of an object because in an object you would have to constantly rename things again and again, but in an array you can already name them whatever you want (destructured by position and not the name of the property)
+
+13 - closure - a function that remembers variables from its outer scrope even after the outer function has finished executing
+
+Each execution creates a new scope, and each returned function keeps a closure over the variables from its own scope.
+
+A scope is simply:
+The region of code where a variable exists and can be accessed.
+
+a function's local variables are destroyed when the function finishes executing. However, if an inner function still references those variables, JavaScript keeps them alive. This preserved state is called a closure.
+
+a and b have separate closures. Calling a() increments its own count, while b() starts with a fresh count of 0 because it was created by a different call to outer().
+
+14.  onClick={handleClick} -> passes the function itself to react so you dont need the parenthesis again
+
+onClick={handleClick} passes a function reference, while onClick={handleClick()} executes the function immediately. React expects a function to run when the event occurs, not the result of calling the function during render.
+
+main reason for the arrow function is to delay execution until the click happens.
+
+When you see:
+
+onClick={something}
+
+ask yourself:
+
+Is something a function reference?
+
+Good:
+
+onClick={handleClick}
+
+Good:
+
+onClick={() => handleClick("Akanksha")}
+
+Bad:
+
+onClick={handleClick()}
+
+Bad:
+
+onClick={handleClick("Akanksha")}
+
+because both execute immediately.
+
+15. Conditional Rendering - 
+&& is used because it provides a concise way to render something only when a condition is true.
+
+use a ternary when I need to choose between two different UI outputs. I would use && when I only want to render something when a condition is true and render nothing otherwise.
+
+prev represents the most recent state value maintained by React. Using prev => prev + 1 is safer because state updates can be batched or queued, so relying on the current count variable may use a stale value.
+
+
+
+
+

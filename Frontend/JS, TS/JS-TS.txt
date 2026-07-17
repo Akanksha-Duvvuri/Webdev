@@ -1,6 +1,38 @@
-TS vs JS -
+1. TS vs JS -
 
 JS is a dynamic scripting language (scripting language - a prog lang that is interpreted line by line at run time rather than being compiled into machine code beforehand). Runs directly in the browser and node JS, errors are caught during execution
 
 
 TS is a static typing scripting lang (errors are checked at the compile time), this must be transpiled into JS first, errors are caught instantly in the code editor. 
+
+2. Basics of the basics - 
+
+what is a function? = its simply a reusable block of code 
+
+what are arrow functions? = a simplified function - they omit the function keyword entirely
+
+what is a callback function? = a function passed into another function
+
+3. Promises - an object that represents a value that doesnt exist yet, but will exist in the future 
+
+for example lets say i have const data = fetch("api/user")
+
+right now, my data isnt name : "akanksha", but instead it returns as a promise { <pending> }
+
+because the network request hasnt finished yet, so in other words the browser has sent the request to the data base to fetch it, but the server hasnt responded yet. 
+
+it represents or it gives back the completion or the failure of an asynchronous operation - it can be pending, rejected, or fulfilled. 
+
+SyntaxError: await is only valid in async functions
+
+response is the object returned not the data.
+
+Async - this function will always return a promise even if the value is immediately available
+
+SO WHY DOES AN ASYNC FUNCTION ALWAYS RETURN A PROMISE?
+
+-> because the keyword async automatically wraps the return value in a Promise. 
+this gives JS  a way to handle asynchronous results using await or .then(
+)
+
+

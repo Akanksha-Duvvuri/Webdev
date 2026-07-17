@@ -1,0 +1,14 @@
+In coding, a toolkit is a collection of pre-written code, software programs, and documents used to build applications faster
+
+In JavaScript, a CDN (Content Delivery Network) is a globally distributed system of servers used to host and deliver JavaScript files, libraries, and frameworks
+
+Instead of downloading a library (like jQuery or Bootstrap) and hosting it on your own server, you link directly to a copy hosted on a CDN.
+
+Instead of downloading a library (like jQuery or Bootstrap) and hosting it on your own server, you link directly to a copy hosted on a CDN. This ensures the file is delivered to your website visitors from the server geographically closest to them, drastically speeding up load times.
+
+Boilerplate code refers to sections of code that must be included in multiple places with little or no modification to get a program running
+
+
+Tailwind CSS is a utility-first CSS framework used to rapidly style websites directly inside your HTML or JavaScript components. 
+
+Unlike traditional frameworks like Bootstrap that give you pre-built components (like a standard .btn class for buttons), Tailwind provides low-level, single-purpose building blocks. These classes map directly to standard CSS properties, allowing you to create completely custom designs without writing a single line of custom CSS.
