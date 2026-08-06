@@ -3,3 +3,27 @@ React is a free, open-source front-end JavaScript library used for building fast
 React apps are made out of components. A component is a piece of the UI (user interface) that has its own logic and appearance.
 
 React components are JavaScript functions that return markup
+
+React component names must always start with a capital letter, while HTML tags must be lowercase.
+
+The export default keywords specify the main component in the file.
+
+The src attribute (short for "source") specifies the location or URL of an external resource that an element needs to load
+
+ It tells the web browser exactly where to find a file—such as an image, script, video, or audio track—so it can be displayed or executed on the page.
+
+You can use the style attribute when your styles depend on JavaScript variables.
+
+style={{}} is not a special syntax, but a regular {} object inside the style={ } JSX curly braces.
+
+the map() function to transform an array of products into an array of <li> items
+
+Often, you’ll want your component to “remember” some information and display it. For example, maybe you want to count the number of times a button is clicked. To do this, add state to your component.
+
+If you render the same component multiple times, each will get its own state. 
+
+Functions starting with use are called Hooks. useState is a built-in Hook provided by React.
+
+You can only call Hooks at the top of your components (or other Hooks). If you want to use useState in a condition or a loop, extract a new component and put it there.
+
+Next.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations.

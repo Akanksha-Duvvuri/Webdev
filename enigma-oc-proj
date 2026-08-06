@@ -1,0 +1,66 @@
+multer is a node js middleware for handling multipart/form-data (is a HTTP media type used to send complex data - such as text and files in a single request) which is used for uploading files. 
+
+HTTP stands for HyperText Transfer Protocol. It is the foundation of data communication for the World Wide Web. It acts as a set of rules (or language) that allows your web browser to talk to a web server in order to load websites.
+
+whenever a server receives a HTTP request - middleware functions intercept it - they have access to three arguments (req, res, next())
+
+req: The Request object containing details about the client's incoming data.
+res: The Response object used to send back data or HTML headers.
+next(): A callback function that, when executed, passes control to the next middleware in line
+
+Multer adds a body object and a file or files object to the request object.
+The body object contains the values of the text fields of the form, the file or files object contains the files uploaded via the form.
+
+The enctype attribute in HTML specifies how form data is encoded before being sent to a server
+
+The HTML attribute enctype="multipart/form-data" is required whenever a web form contains a file upload input (<input type="file">). It instructs the browser to package the form data into distinct, separate segments so that complex binary files (like images, audio, or PDFs) can be successfully transmitted to the server along with normal text inputs
+
+Multer has this dest property which tells multer where to upload the files - (usually disk) and by defualt multer will rename the files to avoid naming conflict
+
+dest or storage	- Where to store the files
+limits - Limits of the uploaded data
+
+fs - filesystem - built into node 
+Does the actual disk work: create folders, move files, delete files
+Functions you use: mkdirSync, renameSync, unlink/unlinkSync
+This is your "storage layer" — the thing the brief says you must build yourself
+
+dest here is actually temporary storage — Multer dumps the file there with a random Multer-generated name first. Your /upload route then renames it (fs.renameSync) to its real final name (the ObjectId-based one) and moves it into the year/month subfolder.
+
+req.files is an object in web development (used with Node.js frameworks like Express) that stores files uploaded from a client form
+In MongoDB, ObjectId is a 12-byte BSON data type used as the default unique identifier (the primary key) for the _id field in every document. 
+
+ If you are working in Node.js with the popular Object Data Modeling (ODM) library Mongoose, mongoose.Types.ObjectId is the constructor class used to instantiate or manipulate these IDs programmatically
+
+upload.array("file", 10)
+This is Multer telling Express: "expect an array of files uploaded under the form field name file, max 10 of them." It parses all the files from the incoming multipart request and puts them in req.files (plural array) instead of req.file (singular). Not "uploads the file" exactly — it's the parsing step; nothing gets permanently saved yet, it just extracts the files from the request and hands them to your route code.
+"the disk" — good that you asked. "Disk" just means your computer's actual storage — the hard drive/SSD, the same place any file on your laptop lives. When we say "write to disk," we mean literally saving bytes into a real file in a real folder (uploads/2026/07/...), as opposed to keeping something only in memory (RAM), which disappears the moment your program stops running. Your MongoDB documents are metadata about files; the actual file contents physically live on disk.
+req.files — correct, good instinct.
+path.extname(file.originalname).toLowerCase()
+Not "converting the name to lowercase" — path.extname() first extracts just the extension from the filename. E.g. path.extname("Resume.PDF") → .PDF. Then .toLowerCase() converts that extension to lowercase → .pdf. Why: so that "Resume.PDF" and "resume.pdf" both get treated as the same file type when you check them against your allowedExtensions list later — otherwise .PDF wouldn't match .pdf in that list and would get wrongly rejected.
+mongoose.Types.ObjectId() — correct.
+padStart(2, "0")
+This pads a string to a minimum length by adding characters (here, "0") to the front. now.getMonth() returns month as a number 0–11 (January = 0!), so you +1 to get 1–12. But for January that gives you "1", a single character — you want "01" so your folder names sort and look consistent (01, 02, ... 12 instead of 1, 2, ..., 12). padStart(2, "0") says "make this string at least 2 characters long, and if it's shorter, add 0s to the front." So "9".padStart(2, "0") → "09", but "12".padStart(2, "0") → stays "12" since it's already 2 characters.
+fs.mkdirSync(subDir, { recursive: true })
+Not "if true, write the file" — this line's only job is creating the folder itself (e.g. uploads/2026/07/), it doesn't write any file content at all. recursive: true means it'll create all missing folders in that path at once (2026 and 07 both, even if neither existed yet), and won't throw an error if the folder's already there. The actual file-writing happens two lines later, with fs.renameSync.
+Your _id vs ext confusion — this is the good question:
+jsconst storedFileName = path.join(year, month, `${_id}${ext}`);
+_id is just the MongoDB ObjectId — something like 6a5873bc17cec20462e4b95d. On its own, that string has no file extension, so if you saved it as just _id, the file would be named 6a5873bc17cec20462e4b95d with no .pdf/.jpg/etc. — the operating system (and browsers) wouldn't know what kind of file it is just from the name. So you glue the extension back on: ${_id}${ext} → 6a5873bc17cec20462e4b95d.pdf. They're not "the same thing" — _id is the unique identifier (prevents collisions), ext is just the file type tag stuck on the end so the filename still makes sense as a real file.
+fs.renameSync(file.path, finalPath)
+file.path is where Multer temporarily dumped the file (inside uploadDir, with some random Multer-generated name). renameSync moves it from that temp location to finalPath — your real, permanent, ObjectId-named location inside the year/month folder. "Rename" here effectively means "move," since you're changing both its name and its folder.
+file.mimetype
+MIME type is a standardized label for "what kind of file is this," based on its actual content — e.g. image/png, application/pdf, text/plain. Multer reads this from the browser's declared type when the file was uploaded (the browser inspects the file and sends this along in the request). It's more precise than just trusting the file extension, since it describes the format directly. You're storing it so that later, when someone downloads the file, your server can tell the browser exactly what type of content it's sending back.
+async/await/Promises — the thing you said you're always confused about, let's actually clear it up:
+
+A Promise is JavaScript's way of representing "a value that isn't ready yet, but will be eventually" — usually because it involves waiting on something slow, like a network request or a database call.
+newFile.save() — this Mongoose method returns a Promise internally (Mongoose wrote it that way). You don't see the word "Promise" anywhere in your code because it's hidden inside Mongoose's implementation — but every time you call .save(), it hands back a Promise that will eventually either succeed (file saved) or fail (DB error).
+await is what lets you write code that looks synchronous while actually waiting for that Promise to finish. Without await, newFile.save() would return the Promise itself (not the actual result) and your code would race ahead to savedFiles.push(...) before the save even finished.
+async on the function (async (req, res) => {...}) is required because you use await inside it — you can only use await inside a function marked async.
+
+So the flow really is: "hey Mongo, save this — I'll pause right here and wait until you tell me whether it worked or failed, then continue."
+savedFiles.push(file.originalname) — small but important correction: this is not pushing into the database. newFile.save() is what saves to the database — that already happened on the line above. savedFiles is just a plain JavaScript array you made up yourself, purely to keep track of which filenames succeeded during this batch upload (currently you don't even use this array afterward — worth noting you could log it or show it to the user, but right now it's unused after being built).
+fs.unlinkSync(finalPath)
+"Unlink" is the technical term (comes from Unix) for delete a file. Your understanding is right: if the DB save fails after the file's already been written to disk, this deletes that now-orphaned file — so you don't end up with a file sitting on disk with no matching database record.
+
+
+"The disk" just means whichever machine is running the server at the time

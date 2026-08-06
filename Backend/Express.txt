@@ -282,3 +282,5 @@ A session stores user state on the server while the browser stores only a sessio
 JWT
 
 A JWT is a signed token containing user information that allows stateless authentication without storing session data on the server.
+
+In Express, HTTP headers are split into two categories: reading headers from an incoming request using req, and writing headers to an outgoing response using res

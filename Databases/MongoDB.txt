@@ -1,0 +1,1 @@
+MongoDB is a document-oriented, operational database. MongoDB allows developers to store rich JSON-like documents that map naturally to the objects they use in their code
